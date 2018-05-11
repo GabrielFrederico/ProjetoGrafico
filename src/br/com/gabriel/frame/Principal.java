@@ -5,6 +5,8 @@
  */
 package br.com.gabriel.frame;
 
+import br.com.gabriel.objeto.Aluno;
+import br.com.gabriel.objeto.Nota;
 import br.com.gabriel.objeto.TipoAvaliacao;
 import javax.swing.JOptionPane;
 
@@ -13,6 +15,8 @@ import javax.swing.JOptionPane;
  * @author SATC
  */
 public class Principal extends javax.swing.JFrame {
+
+    Aluno a;
 
     /**
      * Creates new form Principal
@@ -139,7 +143,7 @@ public class Principal extends javax.swing.JFrame {
         jTFNomedaDisciplina.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         jCBNomedaDisciplina.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jCBNomedaDisciplina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione uma opção", "PROVA", "TRABALHO", "SEMINARIO" }));
+        jCBNomedaDisciplina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PROVA", "TRABALHO", "SEMINARIO" }));
         jCBNomedaDisciplina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBNomedaDisciplinaActionPerformed(evt);
@@ -289,10 +293,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarAlunoActionPerformed
         // TODO add your handling code here:
-        int matricula;
-        String nome;
-        matricula = Integer.parseInt(this.jTFMatriculaAluno.getText());
-        nome = this.jTFNomeAluno.getText();
+        String nome = jTFNomeAluno.getText();
+        int matricula = 0;
+        try{
+        matricula = Integer.parseInt(jTFMatriculaAluno.getText());
+        }catch(NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, "Você digitou um caractere inválido! ");
+            throw new RuntimeException();
+        }
+        a = new Aluno(nome, matricula);
+        JOptionPane.showMessageDialog(null, a.toString());
     }//GEN-LAST:event_jBCadastrarAlunoActionPerformed
 
     private void jCBNomedaDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNomedaDisciplinaActionPerformed
@@ -301,6 +311,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBCalcularNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularNotasActionPerformed
         // TODO add your handling code here:
+        Aluno a = new Aluno(jTFNomeAluno.getText(), Integer.parseInt(jTFMatriculaAluno.getText()));
         String nomeDisciplina;
         float n1, n2, n3, n4, media;
 
@@ -310,10 +321,28 @@ public class Principal extends javax.swing.JFrame {
         n3 = Float.parseFloat(this.jTFN3Notas.getText());
         n4 = Float.parseFloat(this.jTFN4Notas.getText());
         media = (n1 + n2 + n3 + n4) / 4;
-        
-        
 
-        JOptionPane.showMessageDialog(this, nomeDisciplina + "\n Média " + media);
+        TipoAvaliacao tipo = null;
+        switch (jCBNomedaDisciplina.getSelectedIndex()) {
+
+            case 0: {
+                tipo = TipoAvaliacao.PROVA;
+                JOptionPane.showMessageDialog(this, a.toString() + "\n" + "Disciplina: " + nomeDisciplina + "\n" + tipo.getTipoAvaliacao());
+                break;
+            }
+            case 1: {
+                tipo = TipoAvaliacao.TRABALHO;
+                break;
+            }
+            case 2: {
+                tipo = TipoAvaliacao.SEMINARIO;
+                break;
+            }
+        }
+        a.getNotas().add(new Nota(jTFNomedaDisciplina.getText(), tipo, Float.parseFloat(jTFN1Notas.getText())));
+        a.getNotas().add(new Nota(jTFNomedaDisciplina.getText(), tipo, Float.parseFloat(jTFN2Notas.getText())));
+        a.getNotas().add(new Nota(jTFNomedaDisciplina.getText(), tipo, Float.parseFloat(jTFN3Notas.getText())));
+        a.getNotas().add(new Nota(jTFNomedaDisciplina.getText(), tipo, Float.parseFloat(jTFN4Notas.getText())));
     }//GEN-LAST:event_jBCalcularNotasActionPerformed
 
     /**

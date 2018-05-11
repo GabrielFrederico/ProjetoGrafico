@@ -15,6 +15,12 @@ public class Nota {
     private float notas;
     private TipoAvaliacao TipoAvaliacao;
 
+    public Nota(String nomeDisciplina, TipoAvaliacao TipoAvaliacao, float notas) {
+        this.nomeDisciplina = nomeDisciplina;
+        this.notas = notas;
+        this.TipoAvaliacao = TipoAvaliacao;
+    }
+
     public String getNomeDisciplina() {
         return nomeDisciplina;
     }
@@ -37,11 +43,6 @@ public class Nota {
 
     public void setTipoAvaliacao(TipoAvaliacao TipoAvaliacao) {
         this.TipoAvaliacao = TipoAvaliacao;
-    }
-
-    @Override
-    public String toString() {
-        return "Nota{" + "nomeDisciplina=" + nomeDisciplina + ", notas=" + notas + ", TipoAvaliacao=" + TipoAvaliacao + '}';
     }
 
 }

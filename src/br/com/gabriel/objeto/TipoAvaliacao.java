@@ -17,13 +17,12 @@ public enum TipoAvaliacao {
 
     private String tipoAvaliacao;
 
-    private TipoAvaliacao(String nomeAvaliacao) {
-        this.tipoAvaliacao = nomeAvaliacao;
+    public String getTipoAvaliacao() {
+        return tipoAvaliacao;
     }
 
-    @Override
-    public String toString() {
-        return tipoAvaliacao;
+    private TipoAvaliacao(String tipoAvaliacao) {
+        this.tipoAvaliacao = tipoAvaliacao;
     }
 
 }

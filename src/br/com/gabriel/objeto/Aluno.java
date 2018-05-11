@@ -5,6 +5,7 @@
  */
 package br.com.gabriel.objeto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +18,10 @@ public class Aluno {
     private int matricula;
     private List<Nota> notas;
 
-    public Aluno(String nome, int matricula, List<Nota> notas) {
+    public Aluno(String nome, int matricula) {
         this.nome = nome;
         this.matricula = matricula;
-        this.notas = notas;
+        this.notas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -49,7 +50,7 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return "Aluno{" + "nome=" + nome + ", matricula=" + matricula + ", notas=" + notas + '}';
+        return "Aluno: " + nome + "\n" + "Matrícula: " + matricula + ' ';
     }
 
 }
